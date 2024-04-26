@@ -1,0 +1,11 @@
+/*Estilos para upload/index.php*/
+
+.container {
+    & .content {
+        & .formulario {
+            & textarea {
+                resize: none;
+            }
+        }
+    }
+}
