@@ -19,7 +19,7 @@
                 ':pw' => hash("MD5", $_POST["password-r"])
             ));
 
-            $_SESSION["msg"] = "<p class='error'>Registro exitoso, inicie sesion.</p>";
+            $_SESSION["msg"] = "<p>Registro exitoso, inicie sesion.</p>";
             header("Location: " . $_SERVER["REQUEST_URI"] . "");
             exit;
         }
@@ -64,7 +64,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="style.css" />
-    <title>Formulario de registro</title>
+    <title>Ingresar</title>
   </head>
   <body>
     <div class="container-form register">

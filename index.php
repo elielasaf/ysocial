@@ -15,10 +15,16 @@
         <?php
             if (isset($_SESSION["AUTH"])) { ?>
                 <div class="content">
-                    <h1 class="title">Bienvenido</h1>
+                    <?php
+                        if (isset($_SESSION["msg"])) {
+                            echo($_SESSION["msg"]);
+                            unset($_SESSION["msg"]);
+                        }
+                    ?>
+                    <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?></h1>
                     <div class="posts-container">
                         <div class="header-post-container">
-                            <h2 class="title"><i class="fa-solid fa-images"></i>Publicaciones</h2>
+                            <h2 class="title"><i class="fa-solid fa-images"></i>Publicaciones realizadas</h2>
                             <a href="upload/" class="upload"><i class="fa-solid fa-upload"></i>Hacer una públicación</a>
                         </div>
                         <div class="posts-content">
@@ -30,8 +36,8 @@
                 </div>
             <?php } else { ?>
                 <div class="content-nouser">
-                    <h1 class="title">Bienvenido a Red Social</h1>
-                    <p class="info">Para acceder al contenido de este sitio, por favor, inicie sesion o registrese.</p>
+                    <h1 class="title">Bienvenido a [Nombre]</h1>
+                    <p class="info">Para acceder al contenido de [Nombre], por favor, inicie sesion o registrese.</p>
                     <div class="actions">
                         <a href="log/?login" class="login">Iniciar sesion</a>
                         <a href="log/?register" class="register">Registrarme</a>
