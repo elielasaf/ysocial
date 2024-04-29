@@ -1,5 +1,12 @@
 <?php
     session_start();
+    require_once 'config/db.php';
+    require_once 'config/functions/functions.php';
+
+    if (!isset($_GET["order"])) {
+        header("Location: " . $_SERVER["RESQUEST_URI"] . "?order=DESC");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,11 +32,21 @@
                     <div class="posts-container">
                         <div class="header-post-container">
                             <h2 class="title"><i class="fa-solid fa-images"></i>Publicaciones realizadas</h2>
+                            <form action="" method="get">
+                                <p>Ver:
+                                <?php
+                                    if ($_GET["order"] == "DESC") { ?>
+                                        <button type="submit" name="order" value="ASC">Más antiguas</button>
+                                    <?php } else { ?>
+                                        <button type="submit" name="order" value="DESC">Más recientes</button>
+                                    <?php }
+                                ?></p>
+                            </form>
                             <a href="upload/" class="upload"><i class="fa-solid fa-upload"></i>Hacer una públicación</a>
                         </div>
                         <div class="posts-content">
                             <?php
-                                
+                                get_posts($_GET["order"]);
                             ?>
                         </div>
                     </div>
