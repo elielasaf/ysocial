@@ -45,4 +45,4 @@ CREATE TABLE comments (
     CONSTRAINT FOREIGN KEY (`comment_by`)
     	REFERENCES users (`user_id`)
     	ON DELETE CASCADE ON UPDATE CASCADE
-)
+);
