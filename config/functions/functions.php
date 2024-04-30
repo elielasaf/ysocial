@@ -91,6 +91,7 @@
                             <?php
                                 $like = get_likes($post["post_id"]);
                                 echo $like["likes"];
+                                var_dump($like);
 
                                 if (in_array($_SESSION["AUTH"]["id"], $like["liked_by"])) { ?>
                                     <i class="fa-solid fa-heart" style="color: red;"></i>
@@ -142,15 +143,9 @@
             "liked_by" => []
         ];
 
-        $likes = $query -> fetch(PDO::FETCH_ASSOC);
-
         // Esto lo hago porque se genera un bug, con el while si solo hay 1 like.
-        if ($query -> rowCount() == 1) {
+        while ($likes = $query -> fetch(PDO::FETCH_ASSOC)) {
             array_push($data["liked_by"], $likes["like_by"]);
-        } else {
-            while ($likes = $query -> fetch(PDO::FETCH_ASSOC)) {
-                array_push($data["liked_by"], $likes["like_by"]);
-            }
         }
 
         return $data;
