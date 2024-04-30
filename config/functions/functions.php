@@ -85,12 +85,19 @@
                             <?php 
                                 $comments = get_comments($post["post_id"]); 
                                 echo $comments["count"]; 
-                            ?> <i class="fa-solid fa-comment"></i>
+                            ?> <i class="fa-solid fa-comment" style="color: grey;"></i>
                         </div>
                         <div class="likes">
                             <?php
-                                echo get_likes($post["post_id"])
-                            ?> <i class="fa-solid fa-heart"></i>
+                                $like = get_likes($post["post_id"]);
+                                echo $like["likes"];
+
+                                if (in_array($_SESSION["AUTH"]["id"], $like["liked_by"])) { ?>
+                                    <i class="fa-solid fa-heart" style="color: red;"></i>
+                                <?php } else { ?>
+                                    <a href="<?= $_SERVER["REQUEST_URI"] ?>&like-to=<?= $post["post_id"] ?>"><i class="fa-solid fa-heart" style="color: grey;"></i></a>
+                                <?php }
+                            ?>
                         </div>
                     </div>
                     <div class="comments-section">
@@ -120,9 +127,9 @@
 
     /**
      * @param int $c_id ID de la públicación.
-     * @return int Cantidad de likes.
+     * @return array Cantidad de likes y validación de like.
      */
-    function get_likes(int $c_id):int {
+    function get_likes(int $c_id):array {
         global $db;
 
         $query = $db -> prepare("SELECT * FROM likes WHERE like_for = :id");
@@ -130,11 +137,45 @@
             ':id' => $c_id
         ));
 
-        return intval($likes = $query -> rowCount());
+        $data = [
+            "likes" => $query -> rowCount(),
+            "liked_by" => []
+        ];
+
+        $likes = $query -> fetch(PDO::FETCH_ASSOC);
+
+        // Esto lo hago porque se genera un bug, con el while si solo hay 1 like.
+        if ($query -> rowCount() == 1) {
+            array_push($data["liked_by"], $likes["like_by"]);
+        } else {
+            while ($likes = $query -> fetch(PDO::FETCH_ASSOC)) {
+                array_push($data["liked_by"], $likes["like_by"]);
+            }
+        }
+
+        return $data;
     }
 
-    function add_like() {
+    /**
+     * Función para agregar los likes.
+     * @param int $id_post ID de la publicación.
+     * @param int $id_user ID del usuario.
+     * @return void La función redirecciona a la misma publicación.
+     */
+    function add_like(int $id_post, int $id_user):void {
+        global $db;
 
+        $query = $db -> prepare(
+            "INSERT INTO likes (like_for, like_by) 
+             VALUES (:idp, :idu)"
+        );
+        $query -> execute(array(
+            ':idp' => $id_post,
+            ':idu' => $id_user
+        ));
+
+        header("Location: index.php?order=DESC#$id_post");
+        return;
     }
 
     /**
