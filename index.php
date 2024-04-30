@@ -3,8 +3,18 @@
     require_once 'config/db.php';
     require_once 'config/functions/functions.php';
 
-    if (!isset($_GET["order"])) {
-        header("Location: " . $_SERVER["RESQUEST_URI"] . "?order=DESC");
+    if (isset($_SESSION["AUTH"]) && !isset($_GET["order"])) {
+        header("Location: " . $_SERVER["REQUEST_URI"] . "?order=DESC");
+        exit;
+    }
+
+    if (isset($_GET["like-to"])) {
+        add_like($_GET["like-to"], $_SESSION["AUTH"]["id"]);
+    }
+
+    if (isset($_GET["logout"])) {
+        session_destroy();
+        header("Location: index.php");
         exit;
     }
 ?>
@@ -28,7 +38,7 @@
                             unset($_SESSION["msg"]);
                         }
                     ?>
-                    <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?></h1>
+                    <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?> <a href="<?= $_SERVER["REQUEST_URI"] . "&logout"?>" style="font-size: 0.6em;">Cerrar sesión</a></h1>
                     <div class="posts-container">
                         <div class="header-post-container">
                             <h2 class="title"><i class="fa-solid fa-images"></i>Publicaciones realizadas</h2>
