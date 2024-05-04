@@ -55,56 +55,73 @@
 
         while ($post = $query -> fetch(PDO::FETCH_ASSOC)) { ?>
                 <div class="post" id="<?= $post["post_id"] ?>">
-                    <div class="head-post-content">
-                        <div class="user">
-                            <p class="text"><?= get_user($post["post_by"]) ?></p>
+                    <div class="left-content">
+                        <div class="head-post-content">
+                            <div class="user">
+                                <p class="text"><?= get_user($post["post_by"]) ?></p>
+                            </div>
+                            <div class="date">
+                                <p class="text-date" title="<?= $post["post_date"] ?>">
+                                    <?php $date = explode(" ", $post["post_date"]); echo $date[0]; ?>
+                                </p>
+                            </div>
                         </div>
-                        <div class="date">
-                            <p class="text-date" title="<?= $post["post_date"] ?>">
-                                <?php $date = explode(" ", $post["post_date"]); echo $date[0]; ?>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="post-content">
-                        <div class="title-post">
-                            <p class="text-title"><b><?= $post["post_title"] ?></b></p>
-                        </div>
-                        <div class="text-post">
-                            <p class="text-desc"><?= $post["post_desc"] ?></p>
-                        </div>
-                        <?php
-                            if ($post["post_img"] != null) { ?>
-                                <div class="img-post">
-                                    <img src="data:img/jpg;base64,<?= $post["post_img"] ?>" width="300px" height="300px">
-                                </div>
-                            <?php }
-                        ?>
-                    </div>
-                    <div class="actions">
-                        <div class="comments">
-                            <?php 
-                                $comments = get_comments($post["post_id"]); 
-                                echo $comments["count"]; 
-                            ?> <i class="fa-solid fa-comment" style="color: grey;"></i>
-                        </div>
-                        <div class="likes">
+                        <div class="post-content">
+                            <div class="title-post">
+                                <p class="text-title"><b><?= $post["post_title"] ?></b></p>
+                            </div>
+                            <div class="text-post">
+                                <p class="text-desc"><?= $post["post_desc"] ?></p>
+                            </div>
                             <?php
-                                $like = get_likes($post["post_id"]);
-                                echo $like["likes"];
-                                var_dump($like);
-
-                                if (in_array($_SESSION["AUTH"]["id"], $like["liked_by"])) { ?>
-                                    <i class="fa-solid fa-heart" style="color: red;"></i>
-                                <?php } else { ?>
-                                    <a href="<?= $_SERVER["REQUEST_URI"] ?>&like-to=<?= $post["post_id"] ?>"><i class="fa-solid fa-heart" style="color: grey;"></i></a>
+                                if ($post["post_img"] != null) { ?>
+                                    <div class="img-post">
+                                        <img src="data:img/jpg;base64,<?= $post["post_img"] ?>" width="300px" height="300px">
+                                    </div>
                                 <?php }
                             ?>
                         </div>
-                    </div>
-                    <div class="comments-section">
-                        <div class="add-comment"></div>
-                        <div class="comments">
+                        <div class="actions">
+                            <div class="comments">
+                                <?php 
+                                    $comments = get_comments($post["post_id"]); 
+                                    echo $comments["count"]; 
+                                ?> <i class="fa-solid fa-comment" style="color: grey;"></i>
+                            </div>
+                            <div class="likes">
+                                <?php
+                                    $like = get_likes($post["post_id"]);
+                                    echo $like["likes"];
 
+                                    if (in_array($_SESSION["AUTH"]["id"], $like["liked_by"])) { ?>
+                                        <i class="fa-solid fa-heart" style="color: red;"></i>
+                                    <?php } else { ?>
+                                        <a href="<?= $_SERVER["REQUEST_URI"] ?>&like-to=<?= $post["post_id"] ?>"><i class="fa-solid fa-heart" style="color: grey;"></i></a>
+                                    <?php }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-content">
+                        <div class="comments-section">
+                            <div class="add-comment">
+                                <form action="" class="add-comment" method="get">
+                                    <label for="input-comment">
+                                        <textarea type="text" name="input-comment" id="input-comment"></textarea>
+                                    </label>
+                                    <button type="submit" name="cmt" value="<?= $post["post_id"] ?>">Comentar</button>
+                                </form>
+                            </div>
+                            <div class="comments">
+                                <?php
+                                    for ($i = 0; $i < count($comments["comments"]); $i++) { ?>
+                                        <div class="comment">
+                                            <div class="by-comment"><?= get_user($comments["comments"][$i]["comment_by"]) ?></div>
+                                            <p class="text-comment"><?= $comments["comments"][$i]["comment"] ?></p>
+                                        </div>
+                                    <?php }
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -155,9 +172,8 @@
      * Función para agregar los likes.
      * @param int $id_post ID de la publicación.
      * @param int $id_user ID del usuario.
-     * @return void La función redirecciona a la misma publicación.
      */
-    function add_like(int $id_post, int $id_user):void {
+    function add_like(int $id_post, int $id_user) {
         global $db;
 
         $query = $db -> prepare(
@@ -196,7 +212,20 @@
         ];
     }
 
-    function add_comment() {
 
+    /**
+     * @param string $comment Texto comentado por el usuario.
+     * @param int $id ID de la públicación.
+     * @param int $by ID del usuario que realizó el comentario.
+     */
+    function add_comment(string $comment, int $id, int $by) {
+        global $db;
+
+        $query = $db -> prepare("INSERT INTO comments (comment, comment_for, comment_by) VALUES (:cm, :cmf, :cmb);");
+        $query -> execute(array(
+            ':cm' => htmlentities($comment),
+            ':cmf' => htmlentities($id),
+            ':cmb' => htmlentities($by)
+        ));
     }
 ?>

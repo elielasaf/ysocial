@@ -3,18 +3,24 @@
     require_once 'config/db.php';
     require_once 'config/functions/functions.php';
 
-    if (isset($_SESSION["AUTH"]) && !isset($_GET["order"])) {
-        header("Location: " . $_SERVER["REQUEST_URI"] . "?order=DESC");
-        exit;
-    }
-
     if (isset($_GET["like-to"])) {
         add_like($_GET["like-to"], $_SESSION["AUTH"]["id"]);
+    }
+
+    if (isset($_GET["input-comment"])) {
+        add_comment($_GET["input-comment"], intval($_GET["cmt"]), $_SESSION["AUTH"]["id"]);
+        header("Location: index.php?order=DESC#" . $_GET['cmt'] . "");
+        exit;
     }
 
     if (isset($_GET["logout"])) {
         session_destroy();
         header("Location: index.php");
+        exit;
+    }
+    
+    if (isset($_SESSION["AUTH"]) && !isset($_GET["order"])) {
+        header("Location: " . $_SERVER["REQUEST_URI"] . "?order=DESC");
         exit;
     }
 ?>
