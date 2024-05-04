@@ -3,18 +3,24 @@
     require_once 'config/db.php';
     require_once 'config/functions/functions.php';
 
-    if (isset($_SESSION["AUTH"]) && !isset($_GET["order"])) {
-        header("Location: " . $_SERVER["REQUEST_URI"] . "?order=DESC");
-        exit;
-    }
-
     if (isset($_GET["like-to"])) {
         add_like($_GET["like-to"], $_SESSION["AUTH"]["id"]);
+    }
+
+    if (isset($_GET["input-comment"])) {
+        add_comment($_GET["input-comment"], intval($_GET["cmt"]), $_SESSION["AUTH"]["id"]);
+        header("Location: index.php?order=DESC#" . $_GET['cmt'] . "");
+        exit;
     }
 
     if (isset($_GET["logout"])) {
         session_destroy();
         header("Location: index.php");
+        exit;
+    }
+    
+    if (isset($_SESSION["AUTH"]) && !isset($_GET["order"])) {
+        header("Location: " . $_SERVER["REQUEST_URI"] . "?order=DESC");
         exit;
     }
 ?>
@@ -38,10 +44,10 @@
                             unset($_SESSION["msg"]);
                         }
                     ?>
-                    <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?> <a href="<?= $_SERVER["REQUEST_URI"] . "&logout"?>" style="font-size: 0.6em;">Cerrar sesión</a></h1>
+                    <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?> <a href="<?= $_SERVER["REQUEST_URI"] . "&logout"?>">Cerrar sesión</a></h1>
                     <div class="posts-container">
                         <div class="header-post-container">
-                            <h2 class="title"><i class="fa-solid fa-images"></i>Publicaciones realizadas</h2>
+                            <h2 class="title-posts"><i class="fa-solid fa-images"></i>Publicaciones realizadas</h2>
                             <form action="" method="get">
                                 <p>Ver:
                                 <?php
