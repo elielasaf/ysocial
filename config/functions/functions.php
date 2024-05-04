@@ -62,7 +62,7 @@
                             </div>
                             <div class="date">
                                 <p class="text-date" title="<?= $post["post_date"] ?>">
-                                    <?php $date = explode(" ", $post["post_date"]); echo $date[0]; ?>
+                                    Publicado el <?php $date = explode(" ", $post["post_date"]); echo $date[0]; ?>
                                 </p>
                             </div>
                         </div>
@@ -104,10 +104,10 @@
                     </div>
                     <div class="right-content">
                         <div class="comments-section">
-                            <div class="add-comment">
-                                <form action="" class="add-comment" method="get">
+                            <div class="add-comment-content">
+                                <form action="" class="add-comment-subcontent" method="get">
                                     <label for="input-comment">
-                                        <textarea type="text" name="input-comment" id="input-comment"></textarea>
+                                        <textarea type="text" name="input-comment" rows="3" id="input-comment" placeholder="Agregar comenario..."></textarea>
                                     </label>
                                     <button type="submit" name="cmt" value="<?= $post["post_id"] ?>">Comentar</button>
                                 </form>
@@ -116,8 +116,8 @@
                                 <?php
                                     for ($i = 0; $i < count($comments["comments"]); $i++) { ?>
                                         <div class="comment">
-                                            <div class="by-comment"><?= get_user($comments["comments"][$i]["comment_by"]) ?></div>
-                                            <p class="text-comment"><?= $comments["comments"][$i]["comment"] ?></p>
+                                            <div class="by-comment"><?= get_user($comments["comments"][$i]["comment_by"]) ?>:</div>
+                                            <p class="text-comment"><i><?= $comments["comments"][$i]["comment"] ?></i></p>
                                         </div>
                                     <?php }
                                 ?>
