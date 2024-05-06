@@ -36,7 +36,7 @@
             ];
 
             $_SESSION["msg"] = upload_post($datos, "wf", $date);
-            header("Location: ../");
+            header("Location: ../home/");
             exit;
         }
     }

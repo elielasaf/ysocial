@@ -1,0 +1,58 @@
+@font-face {
+    font-family: Nunito-Bold;
+    src: url("fonts/Nunito-Bold.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(19, 19, 19);
+    color: rgb(216, 219, 222);
+    font-family: Nunito-Bold;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .content-nouser {
+        width: 50%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        font-size: 1.2em;
+
+        .info {
+            width: 80%;
+            text-align: center;
+        }
+
+        .actions {
+            width: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            a {
+                text-decoration: none;
+                border: 1px solid rgb(216, 219, 222);
+                padding: 5px;
+                border-radius: 7px;
+                transition: 0.3s ease-in-out;
+            }
+
+            a:hover {
+                background-color: rgb(0, 112, 250);
+                color: rgb(216, 219, 222);
+            }
+        }
+    }
+}

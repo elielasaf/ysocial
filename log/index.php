@@ -48,7 +48,7 @@
                     "email" => $datos["user_correo"],
                 ];
 
-                header("Location: ../");
+                header("Location: ../home/");
                 exit;
             }
         }
