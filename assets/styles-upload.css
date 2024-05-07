@@ -1,10 +1,114 @@
-/*Estilos para upload/index.php*/
+@font-face {
+    font-family: Nunito-Bold;
+    src: url("../assets/fonts/Nunito-Bold.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(19, 19, 19);
+    color: rgb(216, 219, 222); 
+    font-family: Nunito-Bold;
+}
 
 .container {
-    & .content {
-        & .formulario {
-            & textarea {
-                resize: none;
+    .content-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 60%;
+        margin: 0 auto;
+
+        .header {
+            padding: 10px 0px 20px 0px;
+
+            .title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+            }
+        }
+
+        .content {
+            .formulario {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+
+                label {
+                    width: 100%;
+
+                    input {
+                        width: 100%;
+                        border: unset;
+                        outline: unset;
+                        border: 1px solid rgb(216, 219, 222);
+                        padding: 8px;
+                        border-radius: 4px;
+                        margin-top: 3px;
+                    }
+                }
+
+                .flex {
+                    display: flex;
+                    flex-direction: column;
+
+                    textarea {
+                        width: 100%;
+                        margin-top: 3px;
+                        resize: none;
+                        border: 1px solid rgb(216, 219, 222);
+                        border-radius: 4px;
+                        padding: 10px;
+                    }
+                }
+            }
+
+            .actions {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+
+                button {
+                    border: unset;
+                    border: 1px solid rgb(216, 219, 222);
+                    padding: 10px;
+                    border-radius: 3px;
+                    width: 120px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    transition: 0.3s ease-in-out;
+                }
+
+                button:hover {
+                    color: rgb(19, 19, 19);
+                    background-color: rgb(216, 219, 222);
+                }
+
+                a {
+                    text-decoration: none;
+                    font-size: 0.8em;
+                    border: 1px solid rgb(216, 219, 222);
+                    padding: 10px;
+                    border-radius: 3px;
+                    width: 120px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    transition: 0.3s ease-in-out;
+                }
+
+                a:hover {
+                    color: rgb(19, 19, 19);
+                    background-color: rgb(216, 219, 222);
+                }
             }
         }
     }

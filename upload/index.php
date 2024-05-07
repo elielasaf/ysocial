@@ -52,39 +52,33 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1 class="title"><i class="fa-solid fa-images"></i>Haz una publicación</h1>
-        </div>
-        <div class="content">
-            <form action="" method="post" class="formulario" enctype="multipart/form-data">
-                <label for="title">Titulo de la publicación
-                    <input type="text" name="title" id="title">
-                </label>
-                <label for="imagen">Subir imagen
-                    <input type="file" name="imagen" id="imagen" accept=".png, .jpg, .jpeg">
-                </label>
-                <label for="desc">
-                    <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
-                </label>
-                <?php
-                    if (isset($_SESSION["msg"])) {
-                        echo($_SESSION["msg"]);
-                        unset($_SESSION["msg"]);
-                    }
-                ?>
-                <div class="actions">
-                    <button type="submit" name="upload">Publicar</button>
-                    <a href="../">Cancelar</a>
-                </div>
-            </form>
-            <!--<form action="" method="get">
-                <button name="commet" value="1">
-                    <i class="fa-solid fa-comment"></i>
-                </button>
-                <button name="like" value="1">
-                    <i class="fa-solid fa-heart"></i>
-                </button>
-            </form>-->
+        <div class="content-form">
+            <div class="header">
+                <h1 class="title"><i class="fa-solid fa-images"></i>Haz una publicación</h1>
+            </div>
+            <div class="content">
+                <form action="" method="post" class="formulario" enctype="multipart/form-data">
+                    <label for="title">Titulo de la publicación
+                        <input type="text" name="title" id="title" placeholder="Titulo...">
+                    </label>
+                    <label for="imagen">Subir imagen (Opcional)
+                        <input type="file" name="imagen" id="imagen" accept=".png, .jpg, .jpeg">
+                    </label>
+                    <label for="desc" class="flex">Descripción
+                        <textarea name="desc" id="desc" cols="30" rows="10" placeholder="Descripción..."></textarea>
+                    </label>
+                    <?php
+                        if (isset($_SESSION["msg"])) {
+                            echo($_SESSION["msg"]);
+                            unset($_SESSION["msg"]);
+                        }
+                    ?>
+                    <div class="actions">
+                        <button type="submit" name="upload">Publicar</button>
+                        <a href="../">Cancelar</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
