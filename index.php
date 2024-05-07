@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Red Social</title>
     <link rel="stylesheet" href="assets/index.css">
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">
