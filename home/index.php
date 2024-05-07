@@ -24,7 +24,7 @@
         exit;
     }
     
-    if (isset($_SESSION["AUTH"]) && !isset($_GET["order"])) {
+    if (!isset($_GET["order"])) {
         header("Location: " . $_SERVER["REQUEST_URI"] . "?order=DESC");
         exit;
     }
@@ -47,21 +47,25 @@
                     unset($_SESSION["msg"]);
                 }
             ?>
-            <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?> <a href="<?= $_SERVER["REQUEST_URI"] . "&logout"?>">Cerrar sesión</a></h1>
+            <div class="header">
+                <h1 class="title">Bienvenido, <?= $_SESSION["AUTH"]["name"]; ?></h1>
+                <a href="<?= $_SERVER["REQUEST_URI"] . "&logout"?>">Cerrar sesión</a>
+            </div>
             <div class="posts-container">
                 <div class="header-post-container">
-                    <h2 class="title-posts"><i class="fa-solid fa-images"></i>Publicaciones realizadas</h2>
-                    <form action="" method="get">
-                        <p>Ver:
-                        <?php
-                            if ($_GET["order"] == "DESC") { ?>
-                                <button type="submit" name="order" value="ASC">Más antiguas</button>
-                            <?php } else { ?>
-                                <button type="submit" name="order" value="DESC">Más recientes</button>
-                            <?php }
-                        ?></p>
-                    </form>
-                    <a href="../upload/" class="upload"><i class="fa-solid fa-upload"></i>Hacer una públicación</a>
+                    <div class="options">
+                        <form action="" method="get">
+                            <p>Ver:
+                            <?php
+                                if ($_GET["order"] == "DESC") { ?>
+                                    <button type="submit" name="order" value="ASC">Más antiguas</button>
+                                <?php } else { ?>
+                                    <button type="submit" name="order" value="DESC">Más recientes</button>
+                                <?php }
+                            ?></p>
+                        </form>
+                        <a href="../upload/" class="upload"><i class="fa-solid fa-upload"></i>Hacer una públicación</a>
+                    </div>
                 </div>
                 <div class="posts-content">
                     <?php

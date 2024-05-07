@@ -1,9 +1,15 @@
-/*Estilos para el ./index.php*/
+@font-face {
+    font-family: Nunito-Bold;
+    src: url("../assets/fonts/Nunito-Bold.ttf");
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Nunito-Bold;
+    background-color: rgb(19, 19, 19);
+    color: rgb(216, 219, 222);
 }
 
 .container {
@@ -15,19 +21,27 @@
         flex-direction: column;
         gap: 10px;
 
-        .title {
+        .header {
+            width: 100%;
+            position: fixed;
+            background-color: rgb(19, 19, 19);
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
-            padding: 10px 20px;
+            padding: 10px 0px;
+            border-bottom: 1px solid rgb(105, 105, 105);
+
+            .title {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                font-size: 1.4em;
+            }
 
             a {
-                position: fixed;
-                right: 0;
-                padding-right: 30px;
                 text-decoration: none;
                 color: unset;
-                font-size: 0.5em;
             }
 
             a:hover {
@@ -38,26 +52,51 @@
         .posts-container {
             width: 80%;
             margin: 0 auto;
+            padding-top: 12vh;
 
             .header-post-container {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
-                padding: 30px 0px;
+                padding: 30px 0px 15px 0px;
 
-                .title-posts {
+                .options {
                     display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: space-between;
                     align-items: center;
-                    gap: 5px;
-                    padding: 10px 0px;
-                }
+                    width: 60%;
 
-                a {
-                    text-decoration: none;
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-                    padding-top: 10px;
+                    form {
+                        button {
+                            border: unset;
+                            border: 1px solid rgb(216, 219, 222);
+                            padding: 7px;
+                            border-radius: 4px;
+                            margin-left: 6px;
+                            cursor: pointer;
+                            transition: 0.3s ease-in-out;
+                        }
+
+                        button:hover {
+                            background-color: rgb(216, 219, 222);
+                            color: rgb(19, 19, 19);
+                        }
+                    }
+
+                    a {
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        padding-bottom: 3px;
+                        border-bottom: 2px solid rgb(19, 19, 19);
+                        transition: 0.3s ease-in-out;
+                    }
+
+                    a:hover {
+                        border-color: rgb(216, 219, 222);
+                    }
                 }
             }
 
@@ -69,24 +108,27 @@
 
                 .post {
                     display: flex;
-                    gap: 20px;
+                    gap: 10px;
                     width: 60%;
-                    border: 1px solid #000;
-                    padding: 10px;
+                    border: 1px solid rgb(216, 219, 222);
                     border-radius: 4px;
 
                     .left-content {
                         width: 60%;
-                        padding: 5px;
+                        border-right: 1px solid rgb(216, 219, 222);
 
                         .head-post-content {
                             display: flex;
                             justify-content: space-between;
                             margin-bottom: 15px;
+                            padding: 10px;
 
                             .date {
-                                font-size: 0.8em;
+                                font-size: 0.65em;
                                 font-style: italic;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
                             }
                         }
 
@@ -94,13 +136,16 @@
                             .title-post {
                                 padding: 10px 0px 5px 0px;
                                 margin-bottom: 5px;
+                                padding: 10px;
+                                font-style: italic;
+                                text-decoration: underline;
                             }
 
                             .text-post {
-                                padding: 5px 0px;
+                                padding: 10px;
                                 margin-bottom: 10px;
-                                border-top: 1px solid #000;
-                                border-bottom: 1px solid #000;
+                                border-top: 1px solid rgb(216, 219, 222);
+                                border-bottom: 1px solid rgb(216, 219, 222);
                             }
 
                             .img-post {
@@ -109,7 +154,7 @@
                                 align-items: center;
                                 padding: 0px 0px 15px 0px;
                                 margin-bottom: 10px;
-                                border-bottom: 1px solid #000;
+                                border-bottom: 1px solid rgb(216, 219, 222) ;
                             }
                         }
 
@@ -118,18 +163,20 @@
                             justify-content: end;
                             align-items: center;
                             gap: 5px;
+                            padding: 0px 10px 10px 0px;
                         }
                     }
 
                     .right-content {
                         width: 40%;
+                        padding: 10px 10px 10px 0px;
 
                         .comments-section {
                             display: flex;
                             flex-direction: column;
 
                             .add-comment-content {
-                                border-bottom: 1px solid #000;
+                                border-bottom: 1px solid rgb(216, 219, 222);
                                 padding: 5px 0px 10px 0px;
 
                                 .add-comment-subcontent {
@@ -145,7 +192,16 @@
                                     button {
                                         margin-top: 3px;
                                         cursor: pointer;
-                                        padding: 3px;
+                                        padding: 6px;
+                                        border-radius: 3px;
+                                        border: unset;
+                                        border: 1px solid rgb(216, 219, 222);
+                                        transition: 0.3s ease-in-out;
+                                    }
+
+                                    button:hover {
+                                        background-color: rgb(216, 219, 222);
+                                        color: rgb(19, 19, 19);
                                     }
                                 }
                             }
@@ -164,7 +220,11 @@
                                     gap: 4px;
                                     padding-bottom: 10px;
                                     margin-bottom: 10px;
-                                    border-bottom: 1px solid #000;
+                                    border-bottom: 1px solid rgb(216, 219, 222);
+                                    
+                                    .text-comment {
+                                        font-style: italic;
+                                    }
                                 }
                             }
                         }
